@@ -48,7 +48,17 @@ ssh-keyscan -H github.com >> "$HOME/.ssh/known_hosts"
 git clone -b "$GITHUB_PAGES_BRANCH" "git@github.com:$GITHUB_PAGES_REPO.git" .
 
 echo '>> Building charts...'
-find "$HELM_CHARTS_SOURCE" -mindepth 1 -maxdepth 1 -type d | while read chart; do
+if [ -z "$HELM_CHARTS_LIST" ]; then
+  charts=$(find "$HELM_CHARTS_SOURCE" -mindepth 1 -maxdepth 1 -type d)
+else
+  charts=$HELM_CHARTS_LIST
+fi
+
+helm repo add jahstreet https://jahstreet.github.io/helm-charts
+
+for chartname in $charts; do
+  chart="$HELM_CHARTS_SOURCE/$(basename $chartname)"
+  if [ -n "$(find "$chart" -name requirements.yaml -maxdepth 1)" ]; then helm repo update && helm dep update && helm dep build; fi
   echo ">>> helm lint $chart"
   helm lint "$chart"
   chart_name="`basename "$chart"`"
