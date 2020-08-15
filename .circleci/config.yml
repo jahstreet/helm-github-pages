@@ -7,7 +7,7 @@ jobs:
       - checkout
       - run:
           name: helm-github-pages
-          command: cat publish.sh | sh
+          command: cat publish.sh | bash
           environment:
             - GITHUB_PAGES_REPO: int128/helm-charts
       - run:
