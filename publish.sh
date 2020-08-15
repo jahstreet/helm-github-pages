@@ -71,11 +71,6 @@ done
 echo '>>> helm repo index'
 helm repo index .
 
-if [[ ! "$CIRCLE_BRANCH" =~ ^release ]]; then
-  echo "Current branch is not release* and do not publish"
-  exit 0
-fi
-
 echo ">> Publishing to $GITHUB_PAGES_BRANCH branch of $GITHUB_PAGES_REPO"
 git config user.email "$CIRCLE_USERNAME@users.noreply.github.com"
 git config user.name CircleCI
