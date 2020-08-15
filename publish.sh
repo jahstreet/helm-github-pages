@@ -71,8 +71,8 @@ done
 echo '>>> helm repo index'
 helm repo index .
 
-if [ "$CIRCLE_BRANCH" != "release-*" ]; then
-  echo "Current branch is not release-* and do not publish"
+if [[ "$CIRCLE_BRANCH" != release* ]]; then
+  echo "Current branch is not release* and do not publish"
   exit 0
 fi
 
