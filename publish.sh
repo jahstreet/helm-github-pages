@@ -54,9 +54,11 @@ else
   charts=$HELM_CHARTS_LIST
 fi
 
-helm repo add jahstreet https://jahstreet.github.io/helm-charts
-helm repo add loki https://grafana.github.io/loki/charts
+helm repo add jetstack https://charts.jetstack.io
+helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
 helm repo add jupyterhub https://jupyterhub.github.io/helm-chart
+helm repo add loki https://grafana.github.io/loki/charts
+helm repo add jahstreet https://jahstreet.github.io/helm-charts
 
 for chartname in $charts; do
   chart="$HELM_CHARTS_SOURCE/$(basename $chartname)"
