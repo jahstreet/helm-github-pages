@@ -39,7 +39,7 @@ tar -zxf "helm-v${HELM_VERSION}-linux-amd64.tar.gz"
 chmod +x linux-amd64/helm
 alias helm=/tmp/helm/bin/linux-amd64/helm
 helm version -c
-helm init -c
+helm init -c --stable-repo-url https://charts.helm.sh/stable
 
 echo ">> Checking out $GITHUB_PAGES_BRANCH branch from $GITHUB_PAGES_REPO"
 cd /tmp/helm/publish
@@ -54,7 +54,6 @@ else
   charts=$HELM_CHARTS_LIST
 fi
 
-helm repo remove stable
 helm repo add jetstack https://charts.jetstack.io
 helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
 helm repo add jupyterhub https://jupyterhub.github.io/helm-chart
